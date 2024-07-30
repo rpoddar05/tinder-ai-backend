@@ -1,6 +1,5 @@
 package com.rpodd.tinder_ai_backend;
 
-import org.bson.codecs.jsr310.LocalDateTimeCodec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -32,10 +31,26 @@ public class TinderAiBackendApplication implements CommandLineRunner{
 	//this tells compiler to run after loading main class
 	public void run(String... args) {
 
+	profileRepository.deleteAll();
+	conversationsRepository.deleteAll();
+		
 	Profile profile = new Profile(
 			"1",
 			"Rahul",
 			"Poddar",
+			32,
+			"Indian",
+			Gender.MALE,
+			"Software Engineer",
+			"foo.jpg",
+			"INTP");
+	
+	profileRepository.save(profile);
+	
+	 profile = new Profile(
+			"2",
+			"FOO",
+			"Bar",
 			32,
 			"Indian",
 			Gender.MALE,
@@ -53,7 +68,7 @@ public class TinderAiBackendApplication implements CommandLineRunner{
 			List.of(new ChatMessage("Hello", profile.id(), LocalDateTime.now())));
 	
 	conversationsRepository.save(conversation);
-	conversationsRepository.findAll().forEach(System.out::print);;
+	conversationsRepository.findAll().forEach(System.out::println);
 	
 	
 	}
